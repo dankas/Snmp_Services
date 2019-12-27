@@ -33,23 +33,26 @@ $headers.Add("x-access-token", $auth.token)
                 $total_pb = ./SnmpGet.exe -r:$prnt_list.data[$i].IP -v:2c -q -o:$prnt_perfil.data[0].Oid_ctdr_pb
                 $total_color = ./SnmpGet.exe -r:$prnt_list.data[$i].IP -v:2c -q -o:$prnt_perfil.data[0].Oid_ctdr_color
                 $contador_dados = "contador_printer_pb="+$printer_pb+"&contador_printer_color="+$printer_color+"&contador_copier_pb="+$copier_pb+"&contador_copier_color="+$copier_color+"&contador_total_pb="+$total_pb+"&contador_total_color="+$total_color
-                $api_rota_suprimentos = "http://localhost:8001/perfil_impressora/"+$prnt_list.data[$i].Patrimonio_CPC+"/suprimentos"
-                #$retorno = Invoke-RestMethod $api_rota_suprimentos -Method 'PUT' -Headers $headers -Body $contador_dados
+                $api_rota_contadores = "http://localhost:8001/perfil_impressora/"+$prnt_list.data[$i].Patrimonio_CPC+"/contadores"
+                $retorno = Invoke-RestMethod $api_rota_contadores -Method 'PUT' -Headers $headers -Body $contador_dados
                 $contador_dados 
                 $retorno | ConvertTo-Json
                 }
-             Default {
+             "Mono" {
                 $printer_pb =  ./SnmpGet.exe -r:$prnt_list.data[$i].IP -v:2c -q -o:$prnt_perfil.data[0].Oid_ctdr_prnt_pb
-                $printer_color =  0
+                $printer_color =  $null
                 $copier_pb =  ./SnmpGet.exe -r:$prnt_list.data[$i].IP -v:2c -q -o:$prnt_perfil.data[0].Oid_ctdr_cpr_pb
-                $copier_color =  0
+                $copier_color =  $null
                 $total_pb = ./SnmpGet.exe -r:$prnt_list.data[$i].IP -v:2c -q -o:$prnt_perfil.data[0].Oid_ctdr_pb
-                $total_color = 0
+                $total_color = $null
                 $contador_dados = "contador_printer_pb="+$printer_pb+"&contador_printer_color="+$printer_color+"&contador_copier_pb="+$copier_pb+"&contador_copier_color="+$copier_color+"&contador_total_pb="+$total_pb+"&contador_total_color="+$total_color
-                $api_rota_suprimentos = "http://localhost:8001/perfil_impressora/"+$prnt_list.data[$i].Patrimonio_CPC+"/suprimentos"
-                #$retorno = Invoke-RestMethod $api_rota_suprimentos -Method 'PUT' -Headers $headers -Body $contador_dados
+                $api_rota_contadores = "http://localhost:8001/perfil_impressora/"+$prnt_list.data[$i].Patrimonio_CPC+"/contadores"
+                $retorno = Invoke-RestMethod $api_rota_contadores -Method 'PUT' -Headers $headers -Body $contador_dados
                 $contador_dados 
                 $retorno | ConvertTo-Json
+                }
+                Default {
+                   Write-Output "ERRO"
                 }
          }
    }
