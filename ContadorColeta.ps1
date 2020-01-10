@@ -12,7 +12,7 @@ $headers.Add("x-access-token", $auth.token)
 #Percorre a lista, todo script precisa ser executado em menos de 5 minutos.
  for ($i = 0; $i -lt $prnt_list.data.Count; $i++) {
     #testa se a multifuncional/impressora está on-line.
-    if (Test-NetConnection $prnt_list.data[$i].IP -InformationLevel Quiet) {
+    if (Test-Connection $prnt_list.data[$i].IP -q -Count 1) {
          $api_rota_perfil = "http://localhost:8001/perfil_impressora/"+$prnt_list.data[$i].Patrimonio_CPC+"/completo"
          $prnt_perfil = Invoke-RestMethod -Method Get -Uri $api_rota_perfil
          $prnt_list.data[$i].Patrimonio_CPC
