@@ -27,9 +27,21 @@ $headers.Add("x-access-token", $auth.token)
          switch ($prnt_perfil.data[0].Impressao_Cor) {
             "Color" {
                 $suprim_K =  ./SnmpGet.exe -r:$prnt_list.data[$i].IP -v:2c -q -o:$prnt_perfil.data[0].Oid_supri_k
+                  if ($suprim_k -eq -100) {
+                     $suprim_K = 1                 
+                  }
                 $suprim_m =  ./SnmpGet.exe -r:$prnt_list.data[$i].IP -v:2c -q -o:$prnt_perfil.data[0].Oid_supri_m
+                if ($suprim_m -eq -100) {
+                  $suprim_K = 1                 
+               }
                 $suprim_c =  ./SnmpGet.exe -r:$prnt_list.data[$i].IP -v:2c -q -o:$prnt_perfil.data[0].Oid_supri_c
+                if ($suprim_c -eq -100) {
+                  $suprim_K = 1                 
+               }
                 $suprim_y =  ./SnmpGet.exe -r:$prnt_list.data[$i].IP -v:2c -q -o:$prnt_perfil.data[0].Oid_supri_y
+                if ($suprim_y -eq -100) {
+                  $suprim_K = 1                 
+               }
                 $suprimentos_dados = "black="+$suprim_K+"&cian="+$suprim_c+"&magenta="+$suprim_m+"&yellow="+$suprim_y
                 $api_rota_suprimentos = "http://localhost:8001/perfil_impressora/"+$prnt_list.data[$i].Patrimonio_CPC+"/suprimentos"
                 $retorno = Invoke-RestMethod $api_rota_suprimentos -Method 'PUT' -Headers $headers -Body $suprimentos_dados
@@ -38,6 +50,9 @@ $headers.Add("x-access-token", $auth.token)
                 }
              Default {
                $suprim_K =  ./SnmpGet.exe -r:$prnt_list.data[$i].IP -v:2c -q -o:$prnt_perfil.data[0].Oid_supri_k
+               if ($suprim_k -eq -100) {
+                     $suprim_K = 1                 
+                  }
                $suprim_m =  0
                $suprim_c =  0
                $suprim_y =  0
