@@ -3,9 +3,13 @@
    * PRNT_LIST baixa da api a lista das impressoras no parque
    * AUTH guarda o token 
  #>
+ param(
+  $loginUsr,
+  $senhaUsr 
+)
 $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $headers.Add("Content-Type", "application/json")
-$credenciais = '{ "email": "danksmoraes@gmail.com", "password": "avenidaaberta"}'
+$credenciais = '{ "email": "'+ $loginUsr +'", "'+ $senhaUsr +'": "avenidaaberta"}'
 $auth = Invoke-RestMethod 'http://localhost:8002/users/login' -Method 'POST' -Headers $headers -Body $credenciais
 $headers.Add("Authorization", "Bearer "+$auth.token)
 $prnt_list = Invoke-RestMethod -Method Get -Headers $headers -Uri "http://localhost:8002/parques/2/printers"
