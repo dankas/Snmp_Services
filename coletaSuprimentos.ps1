@@ -3,6 +3,28 @@
    * PRNT_LIST baixa da api a lista das impressoras no parque
    * AUTH guarda o token 
  #>
+ param(
+    $loginUsr,
+    $senhaUsr 
+ )
+function CodigosSuprimentosRicoh ($valorNivel) {
+    switch($valorNivel) {
+        "-100" {
+            $valorNivel = 10
+        }
+        "-3"{
+            $valorNivel = 100
+        }
+        "-2" {
+            $valorNivel = '"Toner Desconhecido"'
+        }
+        "0" {
+            $valorNivel = '"Toner Esgotado"'
+        }  
+    }
+    return $valorNivel 
+}
+
 $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $headers.Add("Content-Type", "application/json")
 $credenciais = '{ "email": "danksmoraes@gmail.com", "password": "avenidaaberta"}'
@@ -30,54 +52,12 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
           #> 
     switch ($prnt_model_detalhes[0].modelo) {
       "MPC 300sr" {
-        $nivelK =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK
-        $nivelY =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriY
-        $nivelM =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriM
-        $nivelC =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriC
-        switch($nivelK) {
-            "-100" {
-                $nivelK = 10
-            }
-            "-2" {
-                $nivelK = '"Toner Desconhecido"'
-            }
-            "0" {
-                $nivelK = '"Toner Esgotado"'
-            }
-        }
-        switch($nivelY) {
-            "-100" {
-                $nivelY = 10
-            }
-            "-2" {
-                $nivelY = '"Toner Desconhecido"'
-            }
-            "0" {
-                $nivelY = '"Toner Esgotado"'
-            }
-        }
-        switch($nivelM) {
-            "-100" {
-                $nivelM = 10
-            }
-            "-2" {
-                $nivelM = '"Toner Desconhecido"'
-            }
-            "0" {
-                $nivelM = '"Toner Esgotado"'
-            }
-        }
-        switch($nivelC) {
-            "-100" {
-                $nivelC = 10
-            }
-            "-2" {
-                $nivelC = '"Toner Desconhecido"'
-            }
-            "0" {
-                $nivelC = '"Toner Esgotado"'
-            }
-        }
+        $nivelK =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK)
+        $nivelY =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriY)
+        $nivelM =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriM)
+        $nivelC =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriC)
+        
+        
         $suprimentos_dados = '{ "suprimento K":'+ $nivelK + ',"suprimento Y":'+ $nivelY + ',"suprimento M":'+ $nivelM +',"suprimento C":'+ $nivelC +',"origem":"ScriptColeta"}'
         $monitor_suprimentos = '{"dados":' + $suprimentos_dados + '}'
         $perfil_suprimentos ='{ "statusSuprimentos":'+ $suprimentos_dados+'}'
@@ -89,54 +69,11 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
         $retorno
       }
       "MPC 400" {
-        $nivelK =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK
-        $nivelY =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriY
-        $nivelM =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriM
-        $nivelC =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriC
-        switch($nivelK) {
-            "-100" {
-                $nivelK = 10
-            }
-            "-2" {
-                $nivelK = '"Toner Desconhecido"'
-            }
-            "0" {
-                $nivelK = '"Toner Esgotado"'
-            }
-        }
-        switch($nivelY) {
-            "-100" {
-                $nivelY = 10
-            }
-            "-2" {
-                $nivelY = '"Toner Desconhecido"'
-            }
-            "0" {
-                $nivelY = '"Toner Esgotado"'
-            }
-        }
-        switch($nivelM) {
-            "-100" {
-                $nivelM = 10
-            }
-            "-2" {
-                $nivelM = '"Toner Desconhecido"'
-            }
-            "0" {
-                $nivelM = '"Toner Esgotado"'
-            }
-        }
-        switch($nivelC) {
-            "-100" {
-                $nivelC = 10
-            }
-            "-2" {
-                $nivelC = '"Toner Desconhecido"'
-            }
-            "0" {
-                $nivelC = '"Toner Esgotado"'
-            }
-        }
+        $nivelK =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK)
+        $nivelY =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriY)
+        $nivelM =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriM)
+        $nivelC =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriC)
+
         $suprimentos_dados = '{ "suprimento K":'+ $nivelK + ',"suprimento Y":'+ $nivelY + ',"suprimento M":'+ $nivelM +',"suprimento C":'+ $nivelC +',"origem":"ScriptColeta"}'
         $monitor_suprimentos = '{"dados":' + $suprimentos_dados + '}'
         $perfil_suprimentos ='{ "statusSuprimentos":'+ $suprimentos_dados+'}'
@@ -148,54 +85,10 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
         $retorno
       }
       "SP 431N" {
-        $nivelK =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK
-        $nivelY =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriY
-        $nivelM =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriM
-        $nivelC =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriC
-        switch($nivelK) {
-            "-100" {
-                $nivelK = 10
-            }
-            "-2" {
-                $nivelK = '"Toner Desconhecido"'
-            }
-            "0" {
-                $nivelK = '"Toner Esgotado"'
-            }
-        }
-        switch($nivelY) {
-            "-100" {
-                $nivelY = 10
-            }
-            "-2" {
-                $nivelY = '"Toner Desconhecido"'
-            }
-            "0" {
-                $nivelY = '"Toner Esgotado"'
-            }
-        }
-        switch($nivelM) {
-            "-100" {
-                $nivelM = 10
-            }
-            "-2" {
-                $nivelM = '"Toner Desconhecido"'
-            }
-            "0" {
-                $nivelM = '"Toner Esgotado"'
-            }
-        }
-        switch($nivelC) {
-            "-100" {
-                $nivelC = 10
-            }
-            "-2" {
-                $nivelC = '"Toner Desconhecido"'
-            }
-            "0" {
-                $nivelC = '"Toner Esgotado"'
-            }
-        }
+        $nivelK =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK)
+        $nivelY =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriY)
+        $nivelM =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriM)
+        $nivelC =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriC)
         $suprimentos_dados = '{ "suprimento K":'+ $nivelK + ',"suprimento Y":'+ $nivelY + ',"suprimento M":'+ $nivelM +',"suprimento C":'+ $nivelC +',"origem":"ScriptColeta"}'
         $monitor_suprimentos = '{"dados":' + $suprimentos_dados + '}'
         $perfil_suprimentos ='{ "statusSuprimentos":'+ $suprimentos_dados+'}'
@@ -207,54 +100,11 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
         $retorno
       }
       "MPC 2200w" {
-        $nivelK =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK
-        $nivelY =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriY
-        $nivelM =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriM
-        $nivelC =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriC
-        switch($nivelK) {
-            "-100" {
-                $nivelK = 10
-            }
-            "-2" {
-                $nivelK = '"Toner Desconhecido"'
-            }
-            "0" {
-                $nivelK = '"Toner Esgotado"'
-            }
-        }
-        switch($nivelY) {
-            "-100" {
-                $nivelY = 10
-            }
-            "-2" {
-                $nivelY = '"Toner Desconhecido"'
-            }
-            "0" {
-                $nivelY = '"Toner Esgotado"'
-            }
-        }
-        switch($nivelM) {
-            "-100" {
-                $nivelM = 10
-            }
-            "-2" {
-                $nivelM = '"Toner Desconhecido"'
-            }
-            "0" {
-                $nivelM = '"Toner Esgotado"'
-            }
-        }
-        switch($nivelC) {
-            "-100" {
-                $nivelC = 10
-            }
-            "-2" {
-                $nivelC = '"Toner Desconhecido"'
-            }
-            "0" {
-                $nivelC = '"Toner Esgotado"'
-            }
-        }
+        $nivelK =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK)
+        $nivelY =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriY)
+        $nivelM =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriM)
+        $nivelC =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriC)
+
         $suprimentos_dados = '{ "suprimento K":'+ $nivelK + ',"suprimento Y":'+ $nivelY + ',"suprimento M":'+ $nivelM +',"suprimento C":'+ $nivelC +',"origem":"ScriptColeta"}'
         $monitor_suprimentos = '{"dados":' + $suprimentos_dados + '}'
         $perfil_suprimentos ='{ "statusSuprimentos":'+ $suprimentos_dados+'}'
@@ -266,21 +116,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
         $retorno
       }
       "MP 201sp" {
-        $nivelK =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK
-        switch($nivelK) {
-            "-100" {
-                $nivelK = 10
-            }
-            "-2" {
-                $nivelK = '"Toner Desconhecido"'
-            }
-            "0" {
-                $nivelK = '"Toner Esgotado"'
-            }
-            "-3" {
-                $nivelK = 100
-            }
-        }
+        $nivelK =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK)
         $suprimentos_dados = '{ "suprimento K":'+ $nivelK +',"origem":"ScriptColeta"}'
         $monitor_suprimentos = '{"dados":' + $suprimentos_dados + '}'
         $perfil_suprimentos ='{ "statusSuprimentos":'+ $suprimentos_dados+'}'
@@ -292,21 +128,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
         $retorno
       }
       "SP 4510SF" {
-        $nivelK =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK
-        switch($nivelK) {
-            "-100" {
-                $nivelK = 10
-            }
-            "-2" {
-                $nivelK = '"Toner Desconhecido"'
-            }
-            "0" {
-                $nivelK = '"Toner Esgotado"'
-            }
-            "-3" {
-                $nivelK = 100
-            }
-        }
+        $nivelK =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK)
         $suprimentos_dados = '{ "suprimento K":'+ $nivelK +',"origem":"ScriptColeta"}'
         $monitor_suprimentos = '{"dados":' + $suprimentos_dados + '}'
         $perfil_suprimentos ='{ "statusSuprimentos":'+ $suprimentos_dados+'}'
@@ -318,21 +140,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
         $retorno
       }
       "Aficio SP5200s" {
-        $nivelK =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK
-        switch($nivelK) {
-            "-100" {
-                $nivelK = 10
-            }
-            "-2" {
-                $nivelK = '"Toner Desconhecido"'
-            }
-            "0" {
-                $nivelK = '"Toner Esgotado"'
-            }
-            "-3" {
-                $nivelK = 100
-            }
-        }
+        $nivelK =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK)
         $suprimentos_dados = '{ "suprimento K":'+ $nivelK +',"origem":"ScriptColeta"}'
         $monitor_suprimentos = '{"dados":' + $suprimentos_dados + '}'
         $perfil_suprimentos ='{ "statusSuprimentos":'+ $suprimentos_dados+'}'
@@ -344,21 +152,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
         $retorno
       }
       "Aficio SP5210s" {
-        $nivelK =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK
-        switch($nivelK) {
-            "-100" {
-                $nivelK = 10
-            }
-            "-2" {
-                $nivelK = '"Toner Desconhecido"'
-            }
-            "0" {
-                $nivelK = '"Toner Esgotado"'
-            }
-            "-3" {
-                $nivelK = 100
-            }
-        }
+        $nivelK =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK)
         $suprimentos_dados = '{ "suprimento K":'+ $nivelK +',"origem":"ScriptColeta"}'
         $monitor_suprimentos = '{"dados":' + $suprimentos_dados + '}'
         $perfil_suprimentos ='{ "statusSuprimentos":'+ $suprimentos_dados+'}'
