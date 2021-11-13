@@ -3,10 +3,9 @@
    * PRNT_LIST baixa da api a lista das impressoras no parque
    * AUTH guarda o token 
  #>
- param(
-  $loginUsr,
-  $senhaUsr 
-)
+  $loginUsr =$args[0]
+  $senhaUsr =$args[1]
+
 $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $headers.Add("Content-Type", "application/json")
 $credenciais = '{ "email": "'+ $loginUsr +'", "'+ $senhaUsr +'": "avenidaaberta"}'

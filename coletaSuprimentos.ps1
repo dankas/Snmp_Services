@@ -3,10 +3,8 @@
    * PRNT_LIST baixa da api a lista das impressoras no parque
    * AUTH guarda o token 
  #>
- param(
-    $loginUsr,
-    $senhaUsr 
- )
+ $loginUsr =$args[0]
+ $senhaUsr =$args[1]
 function CodigosSuprimentosRicoh ($valorNivel) {
     switch($valorNivel) {
         "-100" {
