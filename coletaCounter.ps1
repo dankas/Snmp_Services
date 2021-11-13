@@ -29,12 +29,12 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
           #> 
     switch ($prnt_model_detalhes[0].especs.impressaoCor) {
       "Color" {
-        $printer_pb =  ./SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrPrntPb
-        $printer_color =  ./SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrPrntColor
-        $copier_pb =  ./SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrCprPb
-        $copier_color =  ./SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrCprColor
-        $total_pb = ./SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrPb
-        $total_color = ./SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrColor
+        $printer_pb =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrPrntPb
+        $printer_color =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrPrntColor
+        $copier_pb =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrCprPb
+        $copier_color =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrCprColor
+        $total_pb = E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrPb
+        $total_color = E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrColor
         $contador_dados = '{ "copy color":'+ $copier_color + ',"copy mono":'+ $copier_pb  +',"print color":'+ $printer_color + ',"print mono":'+$printer_pb + ',"totalcolor":'+ $total_color +',"totalmono":'+ $total_pb +',"origem":"ScriptColeta"}'
         $monitor_counter = '{"dados":' + $contador_dados + '}'
         $perfil_contadores ='{ "statusContadores":'+ $contador_dados+'}'
@@ -48,8 +48,8 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
 
       }
       "Mono" {
-        $printer_pb =  ./SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrPrntPb
-        $copier_pb =  ./SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrCprPb
+        $printer_pb =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrPrntPb
+        $copier_pb =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrCprPb
         $contador_dados = '{ "copy mono":'+ $copier_pb  +',"print mono":'+$printer_pb + ',"totalmono":'+ $total_pb +',"origem":"ScriptColeta"}'
         $monitor_counter = '{"dados":' + $contador_dados + '}'
         $perfil_contadores ='{ "statusContadores":'+ $contador_dados+'}'
