@@ -8,7 +8,7 @@
 
 $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $headers.Add("Content-Type", "application/json")
-$credenciais = '{ "email": "'+ $loginUsr +'", "'+ $senhaUsr +'": "avenidaaberta"}'
+$credenciais = '{ "email": "'+ $loginUsr +'", "password": "'+ $senhaUsr+'"}'
 $auth = Invoke-RestMethod 'http://localhost:8002/users/login' -Method 'POST' -Headers $headers -Body $credenciais
 $headers.Add("Authorization", "Bearer "+$auth.token)
 $prnt_list = Invoke-RestMethod -Method Get -Headers $headers -Uri "http://localhost:8002/parques/2/printers"
