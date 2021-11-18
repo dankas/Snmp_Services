@@ -32,9 +32,9 @@ $prnt_list = Invoke-RestMethod -Method Get -Headers $headers -Uri "http://localh
 #Percorre a lista, todo script precisa ser executado em menos de 5 minutos.
 for ($i = 0; $i -lt $prnt_list.Count; $i++) {
   #testa se a multifuncional/impressora está on-line.
+  $api_rota_perfil = "http://localhost:8002/printers/"+$prnt_list[$i].id
+  $api_rota_model = "http://localhost:8002/printer-modelos/"+$prnt_list[$i].printerModeloId
   if (Test-Connection $prnt_list[$i].config.ip -q -Count 1) {
-    $api_rota_perfil = "http://localhost:8002/printers/"+$prnt_list[$i].id
-    $api_rota_model = "http://localhost:8002/printer-modelos/"+$prnt_list[$i].printerModeloId
     $prnt_perfil = Invoke-RestMethod -Method Get -Headers $headers -Uri $api_rota_perfil
     $prnt_model_detalhes = Invoke-RestMethod -Method Get -Headers $headers -Uri $api_rota_model
     $prnt_list[$i].patrimonio
@@ -161,6 +161,55 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
         $retorno = Invoke-RestMethod $api_rota_perfil -Method 'PATCH' -Headers $headers -Body $perfil_suprimentos
         $retorno
       }
+      "WF C20590" {
+        $nivelK =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK1)
+        $nivelY =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriY)
+        $nivelM =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriM)
+        $nivelC =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriC)
+
+        $suprimentos_dados = '{ "suprimento K":'+ $nivelK + ',"suprimento Y":'+ $nivelY + ',"suprimento M":'+ $nivelM +',"suprimento C":'+ $nivelC +',"origem":"ScriptColeta"}'
+        $monitor_suprimentos = '{"dados":' + $suprimentos_dados + '}'
+        $perfil_suprimentos ='{ "statusSuprimentos":'+ $suprimentos_dados+'}'
+        $api_rota_suprimentos = "http://localhost:8002/printers/"+ $prnt_perfil[0].id +"/Monitoramento-suprimentos"
+        $api_rota_suprimentos
+        $retorno = Invoke-RestMethod $api_rota_suprimentos -Method 'POST' -Headers $headers -Body $monitor_suprimentos
+        $retorno
+        $retorno = Invoke-RestMethod $api_rota_perfil -Method 'PATCH' -Headers $headers -Body $perfil_suprimentos
+        $retorno
+      }
+      "WF C869r" {
+        $nivelK =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK)
+        $nivelY =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriY)
+        $nivelM =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriM)
+        $nivelC =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriC)
+
+        $suprimentos_dados = '{ "suprimento K":'+ $nivelK + ',"suprimento Y":'+ $nivelY + ',"suprimento M":'+ $nivelM +',"suprimento C":'+ $nivelC +',"origem":"ScriptColeta"}'
+        $monitor_suprimentos = '{"dados":' + $suprimentos_dados + '}'
+        $perfil_suprimentos ='{ "statusSuprimentos":'+ $suprimentos_dados+'}'
+        $api_rota_suprimentos = "http://localhost:8002/printers/"+ $prnt_perfil[0].id +"/Monitoramento-suprimentos"
+        $api_rota_suprimentos
+        $retorno = Invoke-RestMethod $api_rota_suprimentos -Method 'POST' -Headers $headers -Body $monitor_suprimentos
+        $retorno
+        $retorno = Invoke-RestMethod $api_rota_perfil -Method 'PATCH' -Headers $headers -Body $perfil_suprimentos
+        $retorno
+      }
+      "WF SC T5400" {
+        $nivelK =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK)
+        $nivelY =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriY)
+        $nivelM =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriM)
+        $nivelC =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriC)
+
+        $suprimentos_dados = '{ "suprimento K":'+ $nivelK + ',"suprimento Y":'+ $nivelY + ',"suprimento M":'+ $nivelM +',"suprimento C":'+ $nivelC +',"origem":"ScriptColeta"}'
+        $monitor_suprimentos = '{"dados":' + $suprimentos_dados + '}'
+        $perfil_suprimentos ='{ "statusSuprimentos":'+ $suprimentos_dados+'}'
+        $api_rota_suprimentos = "http://localhost:8002/printers/"+ $prnt_perfil[0].id +"/Monitoramento-suprimentos"
+        $api_rota_suprimentos
+        $retorno = Invoke-RestMethod $api_rota_suprimentos -Method 'POST' -Headers $headers -Body $monitor_suprimentos
+        $retorno
+        $retorno = Invoke-RestMethod $api_rota_perfil -Method 'PATCH' -Headers $headers -Body $perfil_suprimentos
+        $retorno
+      }
+
       Default {
         Write-Output "ERRO"
       }

@@ -13,18 +13,23 @@ while(1){
    $auth = Invoke-RestMethod 'http://localhost:8002/users/login' -Method 'POST' -Headers $headers -Body $credenciais
    $auth
    $headers.Add("Authorization", "Bearer "+$auth.token)
-
+   $onLine = '{}'
    $prnt_list = Invoke-RestMethod -Method Get -Headers $headers -Uri "http://localhost:8002/parques/2/printers"
    #Percorre a lista, todo script precisa ser executado em menos de 5 minutos.
    for ($i = 0; $i -lt $prnt_list.Count; $i++) {
+      $api_rota_perfil = "http://localhost:8002/printers/"+$prnt_list[$i].id
+      $api_rota_model = "http://localhost:8002/printer-modelos/"+$prnt_list[$i].printerModeloId
    #testa se a multifuncional/impressora está on-line.
    if (Test-Connection $prnt_list[$i].config.ip -q -Count 1) {
-         $api_rota_perfil = "http://localhost:8002/printers/"+$prnt_list[$i].id
-         $api_rota_model = "http://localhost:8002/printer-modelos/"+$prnt_list[$i].printerModeloId
          $prnt_perfil = Invoke-RestMethod -Method Get -Headers $headers -Uri $api_rota_perfil
          $prnt_model_detalhes = Invoke-RestMethod -Method Get -Headers $headers -Uri $api_rota_model
          $prnt_list[$i].patrimonio
+         'ONLINE'
          $prnt_list[$i].config.ip
+         $api_rota_perfil
+         $onLine = '{"statusOnline":{ "flagOnline":true}}'
+         $onLine
+         Invoke-RestMethod $api_rota_perfil -Method 'PATCH' -Headers $headers -Body $onLine 
          $perfilErro = '{"msgErro":{'
          for ($ii = 0; $ii -lt 10; $ii++) {
                $dadosAlert = ' '
@@ -37,9 +42,14 @@ while(1){
 
                if ($alertCod) { 
                   if ($alertLevel -eq 3) {
-                     $flag = '{"flagErro":true}'
-                     $res = Invoke-RestMethod $api_rota_perfil -Method 'PATCH' -Headers $headers -Body $flag
-                     $res 
+                     $flagErro = 1
+                  }
+                  elseif (($alertLevel -ne 3) -and ($flagErro -eq 1)) {
+                     $flagErro = 1
+                  }
+                  else {
+                     $flagErro = 0
+
                   }
                   $dadosAlert = '"Erro['+$ii+']":{'
                   $dadosAlert = $dadosAlert +'"codigo":'+$alertCod+',"menssagem":"'+ $alertMsg+'","severidade":'+$alertLevel+'}'
@@ -53,8 +63,28 @@ while(1){
          <# $dadosAlert #>
          $perfilErro = $perfilErro + '"origem":"scriptColeta"}}'
          $perfilErro 
+         if($flagErro){
+            $flag = '{"flagErro":true}'
+            $res = Invoke-RestMethod $api_rota_perfil -Method 'PATCH' -Headers $headers -Body $flag
+
+         }
+         else {
+            $flag = '{"flagErro":false}'
+            $res = Invoke-RestMethod $api_rota_perfil -Method 'PATCH' -Headers $headers -Body $flag
+         }
+         $flagErro = 0
          $retorno = Invoke-RestMethod $api_rota_perfil -Method 'PATCH' -Headers $headers -Body $perfilErro
          $retorno 
       }
+   else {
+       $offLine = '{"statusOnline":{ "flagOnline":false}}'
+      $res = Invoke-RestMethod $api_rota_perfil -Method 'PATCH' -Headers $headers -Body $offLine
+      Write-Output $res 
+      
+      $prnt_list[$i].patrimonio
+      'OFFLINE'
+      $offLine 
    }
+   }
+   Write-Output "reload"
 }
