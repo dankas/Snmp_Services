@@ -65,7 +65,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
 
       }
               
-      }
+      
       Default {
         Write-Output "ERRO"
       }
