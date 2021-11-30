@@ -6,6 +6,8 @@
  $loginUsr =$args[0]
  $senhaUsr =$args[1]
 while(1){
+   $timestamp = Get-Date -Format o | ForEach-Object { $_ -replace ":", "." }
+
    $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
    $headers.Add("Content-Type", "application/json")
    $credenciais = '{ "email": "'+ $loginUsr +'", "password": "'+ $senhaUsr+'"}'
@@ -27,7 +29,7 @@ while(1){
          'ONLINE'
          $prnt_list[$i].config.ip
          $api_rota_perfil
-         $onLine = '{"statusOnline":{ "flagOnline":true}}'
+         $onLine = '{"statusOnline":{ "ultimaChecagem":"'+$timestamp+'"},"flagOnline":true}'
          $onLine
          Invoke-RestMethod $api_rota_perfil -Method 'PATCH' -Headers $headers -Body $onLine 
          $perfilErro = '{"msgErro":{'
@@ -77,7 +79,7 @@ while(1){
          $retorno 
       }
    else {
-       $offLine = '{"statusOnline":{ "flagOnline":false}}'
+       $offLine = '{"flagOnline":false}'
       $res = Invoke-RestMethod $api_rota_perfil -Method 'PATCH' -Headers $headers -Body $offLine
       Write-Output $res 
       
