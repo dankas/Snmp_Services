@@ -1,8 +1,4 @@
-<# 
------------------- CONFIGURAÇÃO DOS HEADERS E LOGIN NA API ----------------
-   * PRNT_LIST baixa da api a lista das impressoras no parque
-   * AUTH guarda o token 
- #>
+
   $loginUsr =$args[0]
   $senhaUsr =$args[1]
 
@@ -22,14 +18,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
     $prnt_model_detalhes = Invoke-RestMethod -Method Get -Headers $headers -Uri $api_rota_model
     $prnt_list[$i].patrimonio
     $prnt_list[$i].config.ip
-       #$prnt_list[$i].printerModeloId
-       <#Verifica no se o modelo é mono ou color e busca os OIDs no perfil do equipamento para o acesso por SNMP.
-          As Opções do snmpget significam:
-               -r Endereço do equipamento.
-               -v Qual versão do snmp.
-               -q Retorna só o valor, sem os detalhes e formatações.
-               -o É o OID. 
-          #> 
+    
     switch ($prnt_model_detalhes[0].especs.impressaoCor) {
       "Color" {
         $printer_pb =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrPrntPb
@@ -38,7 +27,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
         $copier_color =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrCprColor
         $total_pb = E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrPb
         $total_color = E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrColor
-        $contador_dados = '{ "copy color":'+ $copier_color + ',"copy mono":'+ $copier_pb  +',"print color":'+ $printer_color + ',"print mono":'+$printer_pb + ',"totalcolor":'+ $total_color +',"totalmono":'+ $total_pb +',"origem":"ScriptColeta"}'
+        $contador_dados = '{ "copyColor":'+ $copier_color + ',"copyMono":'+ $copier_pb  +',"printColor":'+ $printer_color + ',"printMono":'+$printer_pb + ',"totalColor":'+ $total_color +',"totalMono":'+ $total_pb +',"origem":"ScriptColeta"}'
         $monitor_counter = '{"dados":' + $contador_dados + '}'
         $perfil_contadores ='{ "statusContadores":'+ $contador_dados+'}'
         $api_rota_contadores = "http://localhost:8002/printers/"+ $prnt_perfil[0].id +"/monitoramento-counters"
@@ -53,7 +42,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
       "Mono" {
         $printer_pb =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrPrntPb
         $copier_pb =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrCprPb
-        $contador_dados = '{ "copy mono":'+ $copier_pb  +',"print mono":'+$printer_pb + ',"totalmono":'+ $total_pb +',"origem":"ScriptColeta"}'
+        $contador_dados = '{ "copyMono":'+ $copier_pb  +',"printMono":'+$printer_pb + ',"totalMono":'+ $total_pb +',"origem":"ScriptColeta"}'
         $monitor_counter = '{"dados":' + $contador_dados + '}'
         $perfil_contadores ='{ "statusContadores":'+ $contador_dados+'}'
         $api_rota_contadores = "http://localhost:8002/printers/"+ $prnt_perfil[0].id +"/monitoramento-counters"
@@ -78,7 +67,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
         #$copier_color =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrCprColor
         $total_pb = E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrPb
         $total_color = E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrColor
-        $contador_dados = '{"totalcolor":'+ $total_color +',"totalmono":'+ $total_pb +',"origem":"ScriptColeta"}'
+        $contador_dados = '{"totalColor":'+ $total_color +',"totalMono":'+ $total_pb +',"origem":"ScriptColeta"}'
         $monitor_counter = '{"dados":' + $contador_dados + '}'
         $perfil_contadores ='{ "statusContadores":'+ $contador_dados+'}'
         $api_rota_contadores = "http://localhost:8002/printers/"+ $prnt_perfil[0].id +"/monitoramento-counters"
@@ -95,7 +84,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
         #$copier_color =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrCprColor
         $total_pb = E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrPb
         $total_color = E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrColor
-        $contador_dados = '{"totalcolor":'+ $total_color +',"totalmono":'+ $total_pb +',"origem":"ScriptColeta"}'
+        $contador_dados = '{"totalColor":'+ $total_color +',"totalMono":'+ $total_pb +',"origem":"ScriptColeta"}'
         $monitor_counter = '{"dados":' + $contador_dados + '}'
         $perfil_contadores ='{ "statusContadores":'+ $contador_dados+'}'
         $api_rota_contadores = "http://localhost:8002/printers/"+ $prnt_perfil[0].id +"/monitoramento-counters"

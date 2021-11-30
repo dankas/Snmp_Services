@@ -56,7 +56,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
         $nivelC =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriC)
         
         
-        $suprimentos_dados = '{ "suprimento K":'+ $nivelK + ',"suprimento Y":'+ $nivelY + ',"suprimento M":'+ $nivelM +',"suprimento C":'+ $nivelC +',"origem":"ScriptColeta"}'
+        $suprimentos_dados = '{ "suprimentoK":'+ $nivelK + ',"suprimentoY":'+ $nivelY + ',"suprimentoM":'+ $nivelM +',"suprimentoC":'+ $nivelC +',"origem":"ScriptColeta"}'
         $monitor_suprimentos = '{"dados":' + $suprimentos_dados + '}'
         $perfil_suprimentos ='{ "statusSuprimentos":'+ $suprimentos_dados+'}'
         $api_rota_suprimentos = "http://localhost:8002/printers/"+ $prnt_perfil[0].id +"/Monitoramento-suprimentos"
@@ -72,7 +72,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
         $nivelM =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriM)
         $nivelC =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriC)
 
-        $suprimentos_dados = '{ "suprimento K":'+ $nivelK + ',"suprimento Y":'+ $nivelY + ',"suprimento M":'+ $nivelM +',"suprimento C":'+ $nivelC +',"origem":"ScriptColeta"}'
+        $suprimentos_dados = '{ "suprimentoK":'+ $nivelK + ',"suprimentoY":'+ $nivelY + ',"suprimentoM":'+ $nivelM +',"suprimentoC":'+ $nivelC +',"origem":"ScriptColeta"}'
         $monitor_suprimentos = '{"dados":' + $suprimentos_dados + '}'
         $perfil_suprimentos ='{ "statusSuprimentos":'+ $suprimentos_dados+'}'
         $api_rota_suprimentos = "http://localhost:8002/printers/"+ $prnt_perfil[0].id +"/Monitoramento-suprimentos"
@@ -87,7 +87,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
         $nivelY =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriY)
         $nivelM =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriM)
         $nivelC =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriC)
-        $suprimentos_dados = '{ "suprimento K":'+ $nivelK + ',"suprimento Y":'+ $nivelY + ',"suprimento M":'+ $nivelM +',"suprimento C":'+ $nivelC +',"origem":"ScriptColeta"}'
+        $suprimentos_dados = '{ "suprimentoK":'+ $nivelK + ',"suprimentoY":'+ $nivelY + ',"suprimentoM":'+ $nivelM +',"suprimentoC":'+ $nivelC +',"origem":"ScriptColeta"}'
         $monitor_suprimentos = '{"dados":' + $suprimentos_dados + '}'
         $perfil_suprimentos ='{ "statusSuprimentos":'+ $suprimentos_dados+'}'
         $api_rota_suprimentos = "http://localhost:8002/printers/"+ $prnt_perfil[0].id +"/Monitoramento-suprimentos"
@@ -103,7 +103,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
         $nivelM =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriM)
         $nivelC =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriC)
 
-        $suprimentos_dados = '{ "suprimento K":'+ $nivelK + ',"suprimento Y":'+ $nivelY + ',"suprimento M":'+ $nivelM +',"suprimento C":'+ $nivelC +',"origem":"ScriptColeta"}'
+        $suprimentos_dados = '{ "suprimentoK":'+ $nivelK + ',"suprimentoY":'+ $nivelY + ',"suprimentoM":'+ $nivelM +',"suprimentoC":'+ $nivelC +',"origem":"ScriptColeta"}'
         $monitor_suprimentos = '{"dados":' + $suprimentos_dados + '}'
         $perfil_suprimentos ='{ "statusSuprimentos":'+ $suprimentos_dados+'}'
         $api_rota_suprimentos = "http://localhost:8002/printers/"+ $prnt_perfil[0].id +"/Monitoramento-suprimentos"
@@ -115,7 +115,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
       }
       "MP 201sp" {
         $nivelK =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK)
-        $suprimentos_dados = '{ "suprimento K":'+ $nivelK +',"origem":"ScriptColeta"}'
+        $suprimentos_dados = '{ "suprimentoK":'+ $nivelK +',"origem":"ScriptColeta"}'
         $monitor_suprimentos = '{"dados":' + $suprimentos_dados + '}'
         $perfil_suprimentos ='{ "statusSuprimentos":'+ $suprimentos_dados+'}'
         $api_rota_suprimentos = "http://localhost:8002/printers/"+ $prnt_perfil[0].id +"/Monitoramento-suprimentos"
@@ -127,7 +127,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
       }
       "SP 4510SF" {
         $nivelK =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK)
-        $suprimentos_dados = '{ "suprimento K":'+ $nivelK +',"origem":"ScriptColeta"}'
+        $suprimentos_dados = '{ "suprimentoK":'+ $nivelK +',"origem":"ScriptColeta"}'
         $monitor_suprimentos = '{"dados":' + $suprimentos_dados + '}'
         $perfil_suprimentos ='{ "statusSuprimentos":'+ $suprimentos_dados+'}'
         $api_rota_suprimentos = "http://localhost:8002/printers/"+ $prnt_perfil[0].id +"/Monitoramento-suprimentos"
@@ -139,7 +139,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
       }
       "Aficio SP5200s" {
         $nivelK =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK)
-        $suprimentos_dados = '{ "suprimento K":'+ $nivelK +',"origem":"ScriptColeta"}'
+        $suprimentos_dados = '{ "suprimentoK":'+ $nivelK +',"origem":"ScriptColeta"}'
         $monitor_suprimentos = '{"dados":' + $suprimentos_dados + '}'
         $perfil_suprimentos ='{ "statusSuprimentos":'+ $suprimentos_dados+'}'
         $api_rota_suprimentos = "http://localhost:8002/printers/"+ $prnt_perfil[0].id +"/Monitoramento-suprimentos"
@@ -151,7 +151,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
       }
       "Aficio SP5210s" {
         $nivelK =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriK)
-        $suprimentos_dados = '{ "suprimento K":'+ $nivelK +',"origem":"ScriptColeta"}'
+        $suprimentos_dados = '{ "suprimentoK":'+ $nivelK +',"origem":"ScriptColeta"}'
         $monitor_suprimentos = '{"dados":' + $suprimentos_dados + '}'
         $perfil_suprimentos ='{ "statusSuprimentos":'+ $suprimentos_dados+'}'
         $api_rota_suprimentos = "http://localhost:8002/printers/"+ $prnt_perfil[0].id +"/Monitoramento-suprimentos"
@@ -167,7 +167,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
         $nivelM =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriM)
         $nivelC =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriC)
 
-        $suprimentos_dados = '{ "suprimento K":'+ $nivelK + ',"suprimento Y":'+ $nivelY + ',"suprimento M":'+ $nivelM +',"suprimento C":'+ $nivelC +',"origem":"ScriptColeta"}'
+        $suprimentos_dados = '{ "suprimentoK":'+ $nivelK + ',"suprimentoY":'+ $nivelY + ',"suprimentoM":'+ $nivelM +',"suprimentoC":'+ $nivelC +',"origem":"ScriptColeta"}'
         $monitor_suprimentos = '{"dados":' + $suprimentos_dados + '}'
         $perfil_suprimentos ='{ "statusSuprimentos":'+ $suprimentos_dados+'}'
         $api_rota_suprimentos = "http://localhost:8002/printers/"+ $prnt_perfil[0].id +"/Monitoramento-suprimentos"
@@ -183,7 +183,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
         $nivelM =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriM)
         $nivelC =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriC)
 
-        $suprimentos_dados = '{ "suprimento K":'+ $nivelK + ',"suprimento Y":'+ $nivelY + ',"suprimento M":'+ $nivelM +',"suprimento C":'+ $nivelC +',"origem":"ScriptColeta"}'
+        $suprimentos_dados = '{ "suprimentoK":'+ $nivelK + ',"suprimentoY":'+ $nivelY + ',"suprimentoM":'+ $nivelM +',"suprimentoC":'+ $nivelC +',"origem":"ScriptColeta"}'
         $monitor_suprimentos = '{"dados":' + $suprimentos_dados + '}'
         $perfil_suprimentos ='{ "statusSuprimentos":'+ $suprimentos_dados+'}'
         $api_rota_suprimentos = "http://localhost:8002/printers/"+ $prnt_perfil[0].id +"/Monitoramento-suprimentos"
@@ -199,7 +199,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
         $nivelM =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriM)
         $nivelC =  CodigosSuprimentosRicoh(E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidSupriC)
 
-        $suprimentos_dados = '{ "suprimento K":'+ $nivelK + ',"suprimento Y":'+ $nivelY + ',"suprimento M":'+ $nivelM +',"suprimento C":'+ $nivelC +',"origem":"ScriptColeta"}'
+        $suprimentos_dados = '{ "suprimentoK":'+ $nivelK + ',"suprimentoY":'+ $nivelY + ',"suprimentoM":'+ $nivelM +',"suprimentoC":'+ $nivelC +',"origem":"ScriptColeta"}'
         $monitor_suprimentos = '{"dados":' + $suprimentos_dados + '}'
         $perfil_suprimentos ='{ "statusSuprimentos":'+ $suprimentos_dados+'}'
         $api_rota_suprimentos = "http://localhost:8002/printers/"+ $prnt_perfil[0].id +"/Monitoramento-suprimentos"
