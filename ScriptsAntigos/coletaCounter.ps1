@@ -42,13 +42,10 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
       "Mono" {
         $printer_pb =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrPrntPb
         $copier_pb =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrCprPb
-<<<<<<< HEAD:Scripts Antigos/coletaCounter.ps1
         $contador_dados = '{ "copyMono":'+ $copier_pb  +',"printMono":'+$printer_pb + ',"totalMono":'+ $total_pb +',"origem":"ScriptColeta"}'
-=======
         $total_pb =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrPb
         $total_color = 0
         $contador_dados = '{ "copy mono":'+ $copier_pb  +',"print mono":'+$printer_pb + ',"totalmono":'+ $total_pb +',"origem":"ScriptColeta"}'
->>>>>>> ecc40e239bd825f5ea6ad0522c774422b874b6bc:coletaCounter.ps1
         $monitor_counter = '{"dados":' + $contador_dados + '}'
         $perfil_contadores ='{ "statusContadores":'+ $contador_dados+'}'
         $api_rota_contadores = "http://localhost:8002/printers/"+ $prnt_perfil[0].id +"/monitoramento-counters"
@@ -73,11 +70,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
         #$copier_color =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrCprColor
         $total_pb = E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrPb
         $total_color = E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrColor
-<<<<<<< HEAD:Scripts Antigos/coletaCounter.ps1
         $contador_dados = '{"totalColor":'+ $total_color +',"totalMono":'+ $total_pb +',"origem":"ScriptColeta"}'
-=======
-        $contador_dados = '{ "copy color":'+ 0 + ',"copy mono":'+ 0 +',"print color":'+ 0 + ',"print mono":'+ 0 + ',"totalcolor":'+ $total_color +',"totalmono":'+ $total_pb +',"origem":"ScriptColeta"}'
->>>>>>> ecc40e239bd825f5ea6ad0522c774422b874b6bc:coletaCounter.ps1
         $monitor_counter = '{"dados":' + $contador_dados + '}'
         $contador_dados
         $monitor_counter
@@ -96,11 +89,7 @@ for ($i = 0; $i -lt $prnt_list.Count; $i++) {
         #$copier_color =  E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrCprColor
         $total_pb = E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrPb
         $total_color = E:\APP\Snmp_Services\SnmpGet.exe -r:$prnt_perfil[0].config.ip  -v:2c -q -o:$prnt_model_detalhes[0].codigosSnmp.oidCtdrColor
-<<<<<<< HEAD:Scripts Antigos/coletaCounter.ps1
         $contador_dados = '{"totalColor":'+ $total_color +',"totalMono":'+ $total_pb +',"origem":"ScriptColeta"}'
-=======
-        $contador_dados = '{ "copy color":'+ 0 + ',"copy mono":'+ 0 +',"print color":'+ 0 + ',"print mono":'+ 0 + ',"totalcolor":'+ $total_color +',"totalmono":'+ $total_pb +',"origem":"ScriptColeta"}'
->>>>>>> ecc40e239bd825f5ea6ad0522c774422b874b6bc:coletaCounter.ps1
         $monitor_counter = '{"dados":' + $contador_dados + '}'
         $contador_dados
         $monitor_counter
