@@ -3,10 +3,10 @@ $id =$args[1]
 $printerModeloId = $args[2]
 $rotaRoot = $args[3]
 $startDate = Get-Date 
+$delay = Get-Random -Maximum 500
+Start-Sleep -Milliseconds $delay
 $statusOnline = ' '
 $perfilErro = '{"msgErro":{'
-$pathLog = 'Logs\Log_'+$perfilPrinter.patrimonio+'.txt'
-
 function CodigosSuprimentosRicoh ($valorNivel) {
     switch($valorNivel) {
         "-100" {
@@ -30,6 +30,7 @@ $rotaPerfil = $rotaRoot+"/printers/"+$id
 $rotaModel = $rotaRoot+"/printer-modelos/"+$printerModeloId
 $perfilPrinter = Invoke-RestMethod -Method Get -Headers $headersAuth -Uri $rotaPerfil
 $modelPrinter = Invoke-RestMethod -Method Get -Headers $headersAuth -Uri $rotaModel
+$pathLog = 'E:\APP\Snmp_Services\Logs\Log_'+$perfilPrinter.patrimonio+'.txt'
 $printPb = 0
 $printColor =  0
 $copierPb =  0
@@ -41,7 +42,8 @@ $nivelY =  0
 $nivelM =  0
 $nivelC =  0
 if (Test-Connection $perfilPrinter.config.ip -q -Count 1) {
-    $statusOnline = '{"statusOnline":{ "flagOnline":true}}'
+    $timestamp = Get-Date -Format o | ForEach-Object { $_ -replace ":", "." }
+    $statusOnline = '{"statusOnline":{ "ultimaChecagem":"'+$timestamp+'"},"flagOnline":true}'
     switch ($modelPrinter.fabricante){
         "RICOH" {
             if($modelPrinter.especs.impressaoCor -eq "Color"){
@@ -193,7 +195,7 @@ if (Test-Connection $perfilPrinter.config.ip -q -Count 1) {
     $perfilErro = $perfilErro + '"origem":"printerAgente"}}'
     $perfilStatusContadores ='{ "statusContadores":'+ $dadosCounters+'}'
     $perfilStatusSuprimentos='{ "statusSuprimentos":'+ $dadosSupply+'}'
-    $pathLog = 'C:\GIT\Snmp_Services\Logs\Log_'+$perfilPrinter.patrimonio+'.txt'
+    $pathLog = 'E:\APP\Snmp_Services\Logs\Log_'+$perfilPrinter.patrimonio+'.txt'
     $retorno = Invoke-RestMethod $rotaPerfil -Method 'PATCH' -Headers $headersAuth -Body $perfilErro
     $retorno = Invoke-RestMethod $rotaPerfil -Method 'PATCH' -Headers $headersAuth -Body $perfilStatusContadores
     $retorno = Invoke-RestMethod $rotaPerfil -Method 'PATCH' -Headers $headersAuth -Body $perfilStatusSuprimentos
@@ -201,7 +203,8 @@ if (Test-Connection $perfilPrinter.config.ip -q -Count 1) {
     $retorno = Invoke-RestMethod $rotaPerfil -Method 'PATCH' -Headers $headersAuth -Body $flag
 }
 else{
-    $statusOnline = '{"statusOnline":{ "flagOnline":false}}'
+    $perfilErro = $perfilErro + '"origem":"printerAgente"}}'
+    $statusOnline = '{"flagOnline":false}'
     $retorno = Invoke-RestMethod $rotaPerfil -Method 'PATCH' -Headers $headersAuth -Body $statusOnline
 }
 
